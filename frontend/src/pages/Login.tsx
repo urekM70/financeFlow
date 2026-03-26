@@ -34,7 +34,7 @@ export function LoginPage() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await login(values);
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
       form.setError('root', { 

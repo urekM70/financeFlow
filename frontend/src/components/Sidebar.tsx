@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Settings, BarChart2, Upload, FileText, PieChart, LogOut, Sparkles, Palette, HelpCircle, ChevronUp } from 'lucide-react';
+import { Settings, BarChart2, Upload, FileText, PieChart, LogOut, Sparkles, Palette, HelpCircle, ChevronUp, Wallet } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { useAuth } from '../context/AuthContext';
 
 const getSidebarItems = (t: any) => [
-  { name: t('Dashboard'), icon: BarChart2, path: '/' },
+  { name: t('Dashboard'), icon: BarChart2, path: '/dashboard' },
   { name: t('Transactions'), icon: FileText, path: '/transactions' },
+  { name: t('Budgeting') || 'Budgeting', icon: Wallet, path: '/budgeting' },
   { name: t('Financial Report') || 'Reports', icon: PieChart, path: '/reports' },
   { name: t('Upload'), icon: Upload, path: '/upload' },
 ];

@@ -13,7 +13,7 @@ export function Settings() {
   } = usePreferences();
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">{t('Settings')}</h1>
         <p className="text-slate-500 dark:text-slate-400">{t('ManageSettings')}</p>

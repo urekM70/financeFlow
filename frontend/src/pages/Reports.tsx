@@ -96,7 +96,7 @@ const Reports: React.FC = () => {
   if (!data) return null;
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -110,7 +110,7 @@ const Reports: React.FC = () => {
 
       {/* Timeframe Selector */}
       <div className="bg-white dark:bg-slate-900 p-4 rounded-lg shadow border border-slate-200 dark:border-slate-800 space-y-4">
-        <div className="flex flex-col sm:flex-row gap-4 items-end sm:items-center">
+        <div className="flex flex-col sm:flex-row gap-4 items-end">
           <div className="w-full sm:w-auto">
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
               {t('Timeframe', 'Timeframe')}

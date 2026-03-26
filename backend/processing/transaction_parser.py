@@ -78,11 +78,24 @@ def parse_transactions(file: BinaryIO, filename: str, column_mapping: Optional[D
     Raises:
         ValueError: If required columns are missing after mapping.
     """
-    # Read the file into a DataFrame based on its extension.
     file_ext = os.path.splitext(filename.lower())[1]
+    
+    # --- PDF Processing ---
+    # PDF parsing uses an LLM to directly map and clean the data.
     if file_ext == '.pdf':
         df = parse_pdf(file)
-    elif file_ext in ['.xls', '.xlsx']:
+        
+        # Ensure dates are standardized, drop invalid rows, and ensure descriptions are strings
+        if 'date' in df.columns:
+            df['date'] = pd.to_datetime(df['date'], dayfirst=True, errors='coerce')
+            df = df.dropna(subset=['date'])
+        if 'description' in df.columns:
+            df['description'] = df['description'].astype(str).fillna('')
+            
+        return df
+
+    # --- CSV and Excel Processing ---
+    if file_ext in ['.xls', '.xlsx']:
         df = pd.read_excel(file)
     else:  # Default to CSV
         df = pd.read_csv(file)
@@ -91,10 +104,10 @@ def parse_transactions(file: BinaryIO, filename: str, column_mapping: Optional[D
     if column_mapping:
         df = df.rename(columns=column_mapping)
     
-    # If debit/credit columns exist, consolidate them into a single 'amount' column.
+    # If debit/credit columns exist, consolidate them into a single 'amount' column robustly.
     if 'amount_debit' in df.columns or 'amount_credit' in df.columns:
-        debit_col = df.get('amount_debit', 0.0)
-        credit_col = df.get('amount_credit', 0.0)
+        debit_col = df['amount_debit'] if 'amount_debit' in df.columns else pd.Series(0.0, index=df.index)
+        credit_col = df['amount_credit'] if 'amount_credit' in df.columns else pd.Series(0.0, index=df.index)
         df['amount'] = credit_col.apply(clean_amount) - debit_col.apply(clean_amount)
 
     # Validate that all required columns are present.

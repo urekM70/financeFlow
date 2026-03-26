@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import uvicorn
 import os
 
-from api import transactions, auth
+from api import transactions, auth, budgets
 from db import models
 from db.database import engine
 from core.i18n import set_lang
@@ -30,6 +30,7 @@ app = FastAPI(
 # Include routers
 app.include_router(transactions.router)
 app.include_router(auth.router)
+app.include_router(budgets.router)
 
 # Configure CORS
 app.add_middleware(

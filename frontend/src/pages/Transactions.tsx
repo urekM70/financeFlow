@@ -183,7 +183,7 @@ export function TransactionsPage() {
   }, [someSelected]);
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8">
+    <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-slate-800 dark:text-white tracking-tight">{t('Transactions')}</h1>
@@ -316,7 +316,7 @@ export function TransactionsPage() {
           <table className="min-w-full divide-y divide-slate-100 dark:divide-slate-800">
             <thead className="bg-slate-50/50 dark:bg-slate-800/50">
               <tr>
-                <th className="px-6 py-3 text-left">
+                <th className="px-4 py-3 sm:px-6 text-left">
                   <input
                     ref={selectAllCheckboxRef}
                     type="checkbox"
@@ -329,10 +329,10 @@ export function TransactionsPage() {
                 <SortableHeader label={t('Description')} sortKey="description" currentSort={sortConfig} onSort={handleSort} />
                 <SortableHeader label={t('Category')} sortKey="category" currentSort={sortConfig} onSort={handleSort} />
                 <SortableHeader label={t('Amount')} sortKey="amount" currentSort={sortConfig} onSort={handleSort} />
-                <th className="px-6 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <th className="px-4 py-3 sm:px-6 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   {t('Type')}
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <th className="px-4 py-3 sm:px-6 text-right text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   {t('Actions')}
                 </th>
               </tr>
@@ -340,7 +340,7 @@ export function TransactionsPage() {
             <tbody className="bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
               {isLoading ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
+                  <td colSpan={7} className="px-4 py-8 sm:px-6 sm:py-12 text-center text-slate-500 dark:text-slate-400">
                     <div className="flex justify-center items-center gap-2">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-slate-500 dark:border-slate-400"></div>
                       {t('LoadingTransactions')}
@@ -349,13 +349,13 @@ export function TransactionsPage() {
                 </tr>
               ) : filteredTransactions?.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
+                  <td colSpan={7} className="px-4 py-8 sm:px-6 sm:py-12 text-center text-slate-500 dark:text-slate-400">
                     {t('NoTransactionsFound')}
                   </td>
                 </tr>
               ) : filteredTransactions?.map((transaction) => (
                 <tr key={transaction.id} className={cn("hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors group", selectedIds.has(transaction.id) && "bg-blue-50 dark:bg-blue-900/20")}>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-3 sm:px-6 sm:py-4">
                     <input
                       type="checkbox"
                       checked={selectedIds.has(transaction.id)}
@@ -363,23 +363,23 @@ export function TransactionsPage() {
                       className="w-4 h-4 rounded border-slate-300 cursor-pointer"
                     />
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-400">
+                  <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-400">
                     {new Date(transaction.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
+                  <td className="px-4 py-3 sm:px-6 sm:py-4 text-sm font-medium text-slate-900 dark:text-white">
                     {transaction.description}
                   </td>
-                  <td className="px-6 py-4 text-sm">
+                  <td className="px-4 py-3 sm:px-6 sm:py-4 text-sm">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
                       {transaction.category}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-medium">
                     <span className={transaction.type === 'expense' ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}>
                       {transaction.type === 'expense' ? '-' : '+'}{formatCurrency(transaction.amount)}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
                     <span className={cn(
                       "px-2 py-1 text-xs font-semibold rounded-full border",
                       transaction.type === 'expense' 
@@ -389,7 +389,7 @@ export function TransactionsPage() {
                       {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button 
                         onClick={() => handleEdit(transaction)}
@@ -430,7 +430,7 @@ function SortableHeader({ label, sortKey, currentSort, onSort }: any) {
   const isActive = currentSort.key === sortKey;
   return (
     <th 
-      className="px-6 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group select-none"
+      className="px-4 py-3 sm:px-6 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group select-none"
       onClick={() => onSort(sortKey)}
     >
       <div className="flex items-center gap-2">

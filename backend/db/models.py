@@ -43,3 +43,10 @@ class ReportCache(Base):
     stats_json = Column(Text, nullable=False)
     narrative = Column(Text, nullable=False)
     generated_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+class Budget(Base):
+    __tablename__ = "budgets"
+
+    id = Column(Integer, primary_key=True, index=True)
+    category = Column(String(100), unique=True, index=True, nullable=False)
+    amount = Column(Float, nullable=False)

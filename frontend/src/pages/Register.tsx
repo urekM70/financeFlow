@@ -39,7 +39,7 @@ export function RegisterPage() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await register({ email: values.email, password: values.password });
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       console.error('Registration failed:', error);
       form.setError('root', { 

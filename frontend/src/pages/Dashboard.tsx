@@ -152,7 +152,7 @@ export function Dashboard() {
   }
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
+    <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
       {/* Page Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -160,9 +160,6 @@ export function Dashboard() {
           <p className="text-slate-500 dark:text-slate-400 mt-1">{t('TrackYourIncome')}</p>
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-            {t('DownloadReport')}
-          </button>
           <button 
             onClick={() => navigate('/upload')}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm"
@@ -284,25 +281,25 @@ export function Dashboard() {
             <tbody className="bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800">
               {recentTransactions.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-slate-500 dark:text-slate-400">
+                  <td colSpan={4} className="px-4 py-6 sm:px-6 sm:py-8 text-center text-slate-500 dark:text-slate-400">
                     {t('NoTransactionsYet')}
                   </td>
                 </tr>
               ) : (
                 recentTransactions.map((transaction) => (
                   <tr key={transaction.id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-400 w-32">
+                    <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-400 w-32">
                       {new Date(transaction.date).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
+                    <td className="px-4 py-3 sm:px-6 sm:py-4 text-sm font-medium text-slate-900 dark:text-white">
                       {transaction.description}
                     </td>
-                    <td className="px-6 py-4 text-sm">
+                    <td className="px-4 py-3 sm:px-6 sm:py-4 text-sm">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
                         {transaction.category}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-right">
+                    <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-medium text-right">
                       <span className={transaction.type === 'expense' ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}>
                         {transaction.type === 'expense' ? '-' : ''}{formatCurrency(Math.abs(transaction.amount))}
                       </span>

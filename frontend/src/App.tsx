@@ -5,12 +5,14 @@ import { Layout } from './components/Layout';
 import { Dashboard } from './pages/Dashboard';
 import { TransactionsPage } from './pages/Transactions';
 import { UploadPage } from './pages/Upload';
+import { BudgetingPage } from './pages/Budgeting';
 import { Personalization } from './pages/Personalization';
 import { Settings } from './pages/Settings';
 import { AccountSettings } from './pages/AccountSettings';
 import { LoginPage } from './pages/Login';
 import Reports from './pages/Reports';
 import { RegisterPage } from './pages/Register';
+import { LandingPage } from './pages/Landing';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { PreferencesProvider } from './context/PreferencesContext';
 import './index.css';
@@ -63,12 +65,13 @@ function App() {
           <Router>
             <Routes>
               {/* Public Routes */}
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               
               {/* Protected Routes */}
               <Route
-                path="/"
+                path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <Layout>
@@ -93,6 +96,16 @@ function App() {
                   <ProtectedRoute>
                     <Layout>
                       <UploadPage />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/budgeting"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <BudgetingPage />
                     </Layout>
                   </ProtectedRoute>
                 }
@@ -138,7 +151,7 @@ function App() {
                 }
               />
               {/* Redirect any other path to the dashboard */}
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>
           </Router>
         </AuthProvider>

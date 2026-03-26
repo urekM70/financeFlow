@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Transaction, NewTransaction, User, AuthResponse, TransactionSummary, PreviewResponse } from '../types';
+import type { Transaction, NewTransaction, User, AuthResponse, TransactionSummary, PreviewResponse, Budget } from '../types';
 
 // When using Vite's proxy, we use relative URLs
 const api = axios.create({
@@ -100,6 +100,22 @@ export const transactionApi = {
     const response = await api.get(`/transactions/report/summary?${params.toString()}`);
     return response.data;
   },
+};
 
-  // Add more API methods as needed
+export const budgetApi = {
+  getBudgets: async (): Promise<Budget[]> => {
+    const response = await api.get('/budgets');
+    return response.data;
+  },
+  createBudget: async (budget: { category: string; amount: number }): Promise<Budget> => {
+    const response = await api.post('/budgets', budget);
+    return response.data;
+  },
+  updateBudget: async (id: number, budget: { amount: number }): Promise<Budget> => {
+    const response = await api.put(`/budgets/${id}`, budget);
+    return response.data;
+  },
+  deleteBudget: async (id: number): Promise<void> => {
+    await api.delete(`/budgets/${id}`);
+  },
 };

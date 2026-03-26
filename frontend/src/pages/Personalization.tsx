@@ -7,7 +7,7 @@ export function Personalization() {
   const { theme, setTheme } = usePreferences();
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Personalization</h1>
         <p className="text-slate-500 dark:text-slate-400">Customize your workspace appearance.</p>

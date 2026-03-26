@@ -163,8 +163,22 @@ export function UploadPage() {
   ];
 
   if (step === 'select') {
+    if (previewMutation.isPending) {
+      return (
+        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center min-h-[60vh]">
+          <div className="p-6 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-6">
+            <Loader2 className="h-16 w-16 animate-spin text-blue-600 dark:text-blue-400" />
+          </div>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">{t('AnalyzingTransactions')}</h1>
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-md text-center">
+            {t('ProcessingFile')}... {t('This may take a moment.....')}
+          </p>
+        </div>
+      );
+    }
+
     return (
-      <div className="p-6 max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">{t('UploadTransactions')}</h1>
         <p className="text-slate-500 dark:text-slate-400 mb-8">{t('ImportYourBank')}</p>
         
@@ -184,20 +198,14 @@ export function UploadPage() {
             "p-4 rounded-full mb-4 transition-colors",
             isDragging ? "bg-blue-100 dark:bg-blue-800 text-blue-600 dark:text-blue-300" : "bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500"
           )}>
-            {previewMutation.isPending ? (
-              <Loader2 className="h-8 w-8 animate-spin" />
-            ) : (
-              <UploadIcon className="h-8 w-8" />
-            )}
+            <UploadIcon className="h-8 w-8" />
           </div>
           
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-            {previewMutation.isPending ? t('ProcessingFile') : t('ClickToUpload')}
+            {t('ClickToUpload')}
           </h3>
           <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-            {previewMutation.isPending 
-              ? t('AnalyzingTransactions') 
-              : t('SupportForFormats')}
+            {t('SupportForFormats')}
           </p>
           
           <input
@@ -206,7 +214,6 @@ export function UploadPage() {
             accept=".csv,.xlsx,.xls,.pdf"
             onChange={handleInputChange}
             className="hidden"
-            disabled={previewMutation.isPending}
           />
         </div>
       </div>
@@ -215,7 +222,7 @@ export function UploadPage() {
 
   if (step === 'mapping') {
     return (
-      <div className="p-6 max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
           <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
             <Settings2 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
@@ -293,8 +300,22 @@ export function UploadPage() {
   }
 
   if (step === 'preview' && previewData && previewData.success && previewData.summary && previewData.transactions) {
+    if (uploadMutation.isPending) {
+      return (
+        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center min-h-[60vh]">
+          <div className="p-6 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-6">
+            <Loader2 className="h-16 w-16 animate-spin text-blue-600 dark:text-blue-400" />
+          </div>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">{t('Saving')}...</h1>
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-md text-center">
+            {t('Please wait while we save your transactions securely.')}
+          </p>
+        </div>
+      );
+    }
+
     return (
-      <div className="p-6 max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{t('PreviewImport')}</h1>
@@ -396,7 +417,7 @@ export function UploadPage() {
 
   if (step === 'success' && uploadSummary) {
     return (
-      <div className="p-6 max-w-2xl mx-auto text-center pt-20">
+      <div className="max-w-2xl mx-auto text-center pt-20">
         <div className="inline-flex items-center justify-center p-4 bg-green-100 dark:bg-green-900/30 rounded-full mb-6">
           <Check className="h-12 w-12 text-green-600 dark:text-green-400" />
         </div>

@@ -28,6 +28,12 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
+export interface Budget {
+  id: number;
+  category: string;
+  amount: number;
+}
+
 export interface TransactionSummary {
   total_transactions: number;
   total_amount: number;
